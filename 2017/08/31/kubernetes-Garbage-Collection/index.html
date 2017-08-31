@@ -32,7 +32,7 @@
 
         .cube-loading:before {
             display: block;
-            content: 'Loading';
+            content: 'chargement';
             position: relative;
             width: 100%;
             top: 50%;
@@ -94,11 +94,11 @@
     <ul class="cube-menu-list">
         
         <li>
-            <a class="lrc-control">Open Lyrics</a>
+            <a class="lrc-control">Ouvrir les paroles</a>
         </li>
         
         <li>
-            <a class="scroll-to-top">Top</a>
+            <a class="scroll-to-top">Haut</a>
         </li>
     </ul>
 </nav>
@@ -197,9 +197,7 @@
 </li>
 </ol>
 <h3 id="级联删除策略的控制"><a href="#级联删除策略的控制" class="headerlink" title="级联删除策略的控制"></a>级联删除策略的控制</h3><p>通过设置所有者对象的deleteOptions.propagationPolicy域可以控制级联删除的策略，这些值包括 “Orphan”, “Foreground”, or “Background”。大多数controller资源的默认gc策略为”Orphan”。  </p>
-<p>下面的代码是background的方式清理被所有者对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kubectl proxy --port=8080</div><div class="line">curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \</div><div class="line">-d &apos;&#123;&quot;kind&quot;:&quot;DeleteOptions&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;propagationPolicy&quot;:&quot;Background&quot;&#125;&apos; \</div><div class="line">-H &quot;Content-Type: application/json&quot;</div></pre></td></tr></table></figure></p>
-<p>下面的代码是foreground的方式清理被所有者对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kubectl proxy --port=8080</div><div class="line">curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \</div><div class="line">-d &apos;&#123;&quot;kind&quot;:&quot;DeleteOptions&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;propagationPolicy&quot;:&quot;Foreground&quot;&#125;&apos; \</div><div class="line">-H &quot;Content-Type: application/json&quot;</div></pre></td></tr></table></figure></p>
-<p>下面是orphan方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kubectl proxy --port=8080</div><div class="line">curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \</div><div class="line">-d &apos;&#123;&quot;kind&quot;:&quot;DeleteOptions&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;propagationPolicy&quot;:&quot;Orphan&quot;&#125;&apos; \</div><div class="line">-H &quot;Content-Type: application/json&quot;</div></pre></td></tr></table></figure></p>
+<p>下面的代码是background的方式清理被所有者对象<br>    kubectl proxy —port=8080<br>    curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \<br>    -d ‘{“kind”:”DeleteOptions”,”apiVersion”:”v1”,”propagationPolicy”:”Background”}’ \<br>    -H “Content-Type: application/json”<br>下面的代码是foreground的方式清理被所有者对象<br>    kubectl proxy —port=8080<br>    curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \<br>    -d ‘{“kind”:”DeleteOptions”,”apiVersion”:”v1”,”propagationPolicy”:”Foreground”}’ \<br>    -H “Content-Type: application/json”<br>下面是orphan方式<br>    kubectl proxy —port=8080<br>    curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \<br>    -d ‘{“kind”:”DeleteOptions”,”apiVersion”:”v1”,”propagationPolicy”:”Orphan”}’ \<br>    -H “Content-Type: application/json”</p>
 <p>kubectl也支持级联删除方式，设置选项—cascade为true就可以自动删除被拥有的对象，如果留下被拥有的对象，则将该选项设置为false，默认值为true</p>
 <pre><code>kubectl delete replicaset my-repset --cascade=false
 </code></pre><p>当在deployment中使用级联删除时必须使用propagationPolicy: Foreground，来清理所有相关对象</p>
@@ -232,7 +230,7 @@
 
 <div class="cube-search cube-sidebar" id="cube-search">
     <div class="search-container">
-        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <input type="text" placeholder="chercher" class="cube-search-input" id="cube-search-input">
         <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
     </div>
     <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
@@ -247,7 +245,7 @@
 </script>
 <div class="cube-search-form">
     <div class="cube-search-control">
-        <input type="text" placeholder="Search" class="search-input">
+        <input type="text" placeholder="chercher" class="search-input">
         <a class="close-button">
             <i class="cube-icon cube-close" aria-hidden="true"></i>
         </a>
@@ -265,9 +263,9 @@
     <a title="Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.">Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.</a>
     
     <div class="count">
-        <a class="count articles"><span>3</span>Article</a>
-        <a class="count tags"><span>1</span>Tags</a>
-        <a class="count categories"><span>0</span>Categories</a>
+        <a class="count articles"><span>3</span>articles</a>
+        <a class="count tags"><span>1</span>marque</a>
+        <a class="count categories"><span>0</span>Catégorie</a>
     </div>
 </div>
 
@@ -281,8 +279,8 @@
         window.musicModule = {}
         window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"https://justlooks.github.io/oldblogbak/宵闇花火.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
         window.musicModule.lrcConfig = {
-            open: 'Open Lyrics',
-            close: 'Close Lyrics'
+            open: 'Ouvrir les paroles',
+            close: 'Fermer les paroles'
         }
     })(window)
 </script>
@@ -291,7 +289,7 @@
 
 <div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
     <div class="title">
-        <a>Recent Posts</a>
+        <a>messages récents</a>
     </div>
     <ul class="list">
         
@@ -362,7 +360,7 @@
 
 <div class="cube-links cube-sidebar" id="cube-links">
     <div class="title">
-        <a>Links</a>
+        <a>des liens</a>
     </div>
     <ul class="list">
         
@@ -398,7 +396,7 @@
 
 <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
     <div class="title">
-        <a>Friend Links</a>
+        <a>Liens amis</a>
     </div>
     <ul class="list">
         
