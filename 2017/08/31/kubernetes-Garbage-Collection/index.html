@@ -32,7 +32,7 @@
 
         .cube-loading:before {
             display: block;
-            content: 'chargement';
+            content: 'Loading';
             position: relative;
             width: 100%;
             top: 50%;
@@ -94,11 +94,11 @@
     <ul class="cube-menu-list">
         
         <li>
-            <a class="lrc-control">Ouvrir les paroles</a>
+            <a class="lrc-control">Open Lyrics</a>
         </li>
         
         <li>
-            <a class="scroll-to-top">Haut</a>
+            <a class="scroll-to-top">Top</a>
         </li>
     </ul>
 </nav>
@@ -182,7 +182,7 @@
     <div class="cube-article-content cube-markdown">
         
         <h1 id="Garbage-Collection"><a href="#Garbage-Collection" class="headerlink" title="Garbage Collection"></a>Garbage Collection</h1><hr>
-<p>   GC的用途就是清理那些原来有所有者但现在不再被所有的对象<br>举个例子来说，ReplicaSet是某群Pod的对象。对象的依赖者<br>由metadata.ownerReferences定义。v1.6版本之后，ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and Deployment会自动定义这个ownerReferences，当然也可以手动设置这个值进行指定。</p>
+<p>GC的用途就是清理那些原来有所有者但现在不再被所有的对象 举个例子来说，ReplicaSet是某群Pod的对象。对象的依赖者由metadata.ownerReferences定义。v1.6版本之后，ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and Deployment会自动定义这个ownerReferences，当然也可以手动设置这个值进行指定。  </p>
 <h3 id="级联删除"><a href="#级联删除" class="headerlink" title="级联删除"></a>级联删除</h3><p>级联删除的行为就是指删除某个对象的时候，如果其他相关对象的所有者是该对象，这些对象也会被删除。级联删除有两种模式后台级联删除和前台级联删除</p>
 <ol>
 <li>后台级联删除<blockquote>
@@ -192,7 +192,7 @@
 </ol>
 <ol>
 <li>前台级联删除<blockquote>
-<p>根对象会进入一个““deletion in progress”的状态，在这个状态中该对象在REST API中仍然可见，该对象的deletionTimestamp会被设置，对象的metadata.finalizers的值包括foregroundDeletion。在进入这个状态后gc开始清理这些被根对象所有的对象，在这些被blocking的对象被删除后（带有ownerReference.blockOwnerDeletion=true的对象），根对象才会被清理，如果一个对象的ownerReferences被某个controller设置后，blockOwnerDeletion会按照规则被自动设置，不需要人为干预。</p>
+<p>根对象会进入一个““deletion in progress”的状态，在这个状态中该对象在REST API中仍然可见，<br>该对象的deletionTimestamp会被设置，对象的metadata.finalizers的值包括foregroundDeletion。<br>在进入这个状态后gc开始清理这些被根对象所有的对象，在这些被blocking的对象被删除后（带有<br>ownerReference.blockOwnerDeletion=true的对象），根对象才会被清理，如果一个对象的<br>ownerReferences被某个controller设置后，blockOwnerDeletion会按照规则被自动设置，不需要人为干预。</p>
 </blockquote>
 </li>
 </ol>
@@ -230,7 +230,7 @@
 
 <div class="cube-search cube-sidebar" id="cube-search">
     <div class="search-container">
-        <input type="text" placeholder="chercher" class="cube-search-input" id="cube-search-input">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
         <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
     </div>
     <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
@@ -245,7 +245,7 @@
 </script>
 <div class="cube-search-form">
     <div class="cube-search-control">
-        <input type="text" placeholder="chercher" class="search-input">
+        <input type="text" placeholder="Search" class="search-input">
         <a class="close-button">
             <i class="cube-icon cube-close" aria-hidden="true"></i>
         </a>
@@ -263,9 +263,9 @@
     <a title="Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.">Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.</a>
     
     <div class="count">
-        <a class="count articles"><span>3</span>articles</a>
-        <a class="count tags"><span>1</span>marque</a>
-        <a class="count categories"><span>0</span>Catégorie</a>
+        <a class="count articles"><span>3</span>Article</a>
+        <a class="count tags"><span>1</span>Tags</a>
+        <a class="count categories"><span>0</span>Categories</a>
     </div>
 </div>
 
@@ -279,8 +279,8 @@
         window.musicModule = {}
         window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"https://justlooks.github.io/oldblogbak/宵闇花火.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
         window.musicModule.lrcConfig = {
-            open: 'Ouvrir les paroles',
-            close: 'Fermer les paroles'
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
         }
     })(window)
 </script>
@@ -289,7 +289,7 @@
 
 <div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
     <div class="title">
-        <a>messages récents</a>
+        <a>Recent Posts</a>
     </div>
     <ul class="list">
         
@@ -349,7 +349,7 @@
     <div class="cube-boxs">
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/tags/kubernetes/">#kubernetes</a>
         </div>
         
@@ -360,7 +360,7 @@
 
 <div class="cube-links cube-sidebar" id="cube-links">
     <div class="title">
-        <a>des liens</a>
+        <a>Links</a>
     </div>
     <ul class="list">
         
@@ -396,7 +396,7 @@
 
 <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
     <div class="title">
-        <a>Liens amis</a>
+        <a>Friend Links</a>
     </div>
     <ul class="list">
         
