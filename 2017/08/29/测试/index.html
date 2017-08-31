@@ -32,7 +32,7 @@
 
         .cube-loading:before {
             display: block;
-            content: 'chargement';
+            content: 'Loading';
             position: relative;
             width: 100%;
             top: 50%;
@@ -94,11 +94,11 @@
     <ul class="cube-menu-list">
         
         <li>
-            <a class="lrc-control">Ouvrir les paroles</a>
+            <a class="lrc-control">Open Lyrics</a>
         </li>
         
         <li>
-            <a class="scroll-to-top">Haut</a>
+            <a class="scroll-to-top">Top</a>
         </li>
     </ul>
 </nav>
@@ -202,10 +202,24 @@
 <p><strong>粗体</strong></p>
 <hr>
 <p><a href="https://justlooks.github.io">my blog</a></p>
-<p><a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x6d;&#x79;&#64;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x6d;&#x79;&#64;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a>  </p>
+<p><a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#109;&#121;&#x40;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#109;&#121;&#x40;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a>  </p>
 <script type="math/tex; mode=display">x^y</script><script type="math/tex; mode=display">R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><hr>
-<p>st=&gt;start: Start|past:&gt;<a href="http://www.google.com[blank" target="_blank" rel="external">http://www.google.com[blank</a>]<br>e=&gt;end: End|future:&gt;<a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a><br>op1=&gt;operation: My Operation|past<br>op2=&gt;operation: Stuff|current<br>sub1=&gt;subroutine: My Subroutine|invalid<br>cond=&gt;condition: Yes<br>or No?|approved:&gt;<a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a><br>c2=&gt;condition: Good idea|rejected<br>io=&gt;inputoutput: catch something…|future</p>
-<p>st-&gt;op1(right)-&gt;cond<br>cond(yes, right)-&gt;c2<br>cond(no)-&gt;sub1(left)-&gt;op1<br>c2(yes)-&gt;io-&gt;e<br>c2(no)-&gt;op2-&gt;e</p>
+<p><div id="flowchart-0" class="flow-chart"></div></p>
+<p><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start|past:>http://www.google.com[blank]
+e=>end: End|future:>http://www.google.com
+op1=>operation: My Operation|past
+op2=>operation: Stuff|current
+sub1=>subroutine: My Subroutine|invalid
+cond=>condition: Yes
+or No?|approved:>http://www.google.com
+c2=>condition: Good idea|rejected
+io=>inputoutput: catch something...|future
+
+st->op1(right)->cond
+cond(yes, right)->c2
+cond(no)->sub1(left)->op1
+c2(yes)->io->e
+c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script></p>
 
     </div>
 </div>
@@ -235,7 +249,7 @@
 
 <div class="cube-search cube-sidebar" id="cube-search">
     <div class="search-container">
-        <input type="text" placeholder="chercher" class="cube-search-input" id="cube-search-input">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
         <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
     </div>
     <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
@@ -250,7 +264,7 @@
 </script>
 <div class="cube-search-form">
     <div class="cube-search-control">
-        <input type="text" placeholder="chercher" class="search-input">
+        <input type="text" placeholder="Search" class="search-input">
         <a class="close-button">
             <i class="cube-icon cube-close" aria-hidden="true"></i>
         </a>
@@ -268,9 +282,9 @@
     <a title="Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.">Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.</a>
     
     <div class="count">
-        <a class="count articles"><span>2</span>articles</a>
-        <a class="count tags"><span>0</span>marque</a>
-        <a class="count categories"><span>0</span>Catégorie</a>
+        <a class="count articles"><span>2</span>Article</a>
+        <a class="count tags"><span>0</span>Tags</a>
+        <a class="count categories"><span>0</span>Categories</a>
     </div>
 </div>
 
@@ -284,8 +298,8 @@
         window.musicModule = {}
         window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"宵闇花火","author":"葉月ゆら","url":"http://cube-1252774894.cosgz.myqcloud.com/music/source/葉月ゆら - 宵闇花火.mp3","lrc":"https://justlooks.github.io/oldblogbak/宵闇花火.lrc","pic":"http://cube-1252774894.cosgz.myqcloud.com/music/image/葉月ゆら - 宵闇花火.jpg"}]}'
         window.musicModule.lrcConfig = {
-            open: 'Ouvrir les paroles',
-            close: 'Fermer les paroles'
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
         }
     })(window)
 </script>
@@ -294,7 +308,7 @@
 
 <div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
     <div class="title">
-        <a>messages récents</a>
+        <a>Recent Posts</a>
     </div>
     <ul class="list">
         
@@ -338,7 +352,7 @@
 
 <div class="cube-links cube-sidebar" id="cube-links">
     <div class="title">
-        <a>des liens</a>
+        <a>Links</a>
     </div>
     <ul class="list">
         
@@ -372,7 +386,7 @@
 
 <div class="cube-friend-links cube-sidebar" id="cube-friend-links">
     <div class="title">
-        <a>Liens amis</a>
+        <a>Friend Links</a>
     </div>
     <ul class="list">
         
