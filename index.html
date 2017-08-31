@@ -163,6 +163,55 @@
     <div class="cube-content">
         <div class="cube-left">
             
+<div class="cube-excerpt" id="cube-excerpt-kubernetes - Garbage Collection">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2017/08/31/kubernetes-Garbage-Collection/">kubernetes - Garbage Collection</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2017-08-31
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/kubernetes/" class="cube-excerpt-tag-link">#kubernetes</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h1 id="Garbage-Collection"><a href="#Garbage-Collection" class="headerlink" title="Garbage Collection"></a>Garbage Collection</h1><hr>
+<p>   GC的用途就是清理那些原来有所有者但现在不再被所有的对象<br>举个例子来说，ReplicaSet是某群Pod的对象。对象的依赖者<br>由metadata.ownerReferences定义。v1.6版本之后，ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and Deployment会自动定义这个ownerReferences，当然也可以手动设置这个值进行指定。</p>
+<h3 id="级联删除"><a href="#级联删除" class="headerlink" title="级联删除"></a>级联删除</h3><p>级联删除的行为就是指删除某个对象的时候，如果其他相关对象的所有者是该对象，这些对象也会被删除。级联删除有两种模式后台级联删除和前台级联删除</p>
+<ol>
+<li>后台级联删除<blockquote>
+<p>立即删除当前对象，尔作为被该对象所有的对象，gc会在后台进行清理</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>前台级联删除<blockquote>
+<p>根对象会进入一个““deletion in progress”的状态，在这个状态中该对象在REST API中仍然可见，该对象的deletionTimestamp会被设置，对象的metadata.finalizers的值包括foregroundDeletion。在进入这个状态后gc开始清理这些被根对象所有的对象，在这些被blocking的对象被删除后（带有ownerReference.blockOwnerDeletion=true的对象），根对象才会被清理，如果一个对象的ownerReferences被某个controller设置后，blockOwnerDeletion会按照规则被自动设置，不需要人为干预。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="级联删除策略的控制"><a href="#级联删除策略的控制" class="headerlink" title="级联删除策略的控制"></a>级联删除策略的控制</h3><p>通过设置所有者对象的deleteOptions.propagationPolicy域可以控制级联删除的策略，这些值包括 “Orphan”, “Foreground”, or “Background”。大多数controller资源的默认gc策略为”Orphan”。  </p>
+<p>下面的代码是background的方式清理被所有者对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kubectl proxy --port=8080</div><div class="line">curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \</div><div class="line">-d &apos;&#123;&quot;kind&quot;:&quot;DeleteOptions&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;propagationPolicy&quot;:&quot;Background&quot;&#125;&apos; \</div><div class="line">-H &quot;Content-Type: application/json&quot;</div></pre></td></tr></table></figure></p>
+<p>下面的代码是foreground的方式清理被所有者对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kubectl proxy --port=8080</div><div class="line">curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \</div><div class="line">-d &apos;&#123;&quot;kind&quot;:&quot;DeleteOptions&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;propagationPolicy&quot;:&quot;Foreground&quot;&#125;&apos; \</div><div class="line">-H &quot;Content-Type: application/json&quot;</div></pre></td></tr></table></figure></p>
+<p>下面是orphan方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kubectl proxy --port=8080</div><div class="line">curl -X DELETE localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/my-repset \</div><div class="line">-d &apos;&#123;&quot;kind&quot;:&quot;DeleteOptions&quot;,&quot;apiVersion&quot;:&quot;v1&quot;,&quot;propagationPolicy&quot;:&quot;Orphan&quot;&#125;&apos; \</div><div class="line">-H &quot;Content-Type: application/json&quot;</div></pre></td></tr></table></figure></p>
+<p>kubectl也支持级联删除方式，设置选项—cascade为true就可以自动删除被拥有的对象，如果留下被拥有的对象，则将该选项设置为false，默认值为true</p>
+<pre><code>kubectl delete replicaset my-repset --cascade=false
+</code></pre><p>当在deployment中使用级联删除时必须使用propagationPolicy: Foreground，来清理所有相关对象</p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2017/08/31/kubernetes-Garbage-Collection/">Read More</a>
+    </footer>
+</div>
+
 <div class="cube-excerpt" id="cube-excerpt-Markdown 语法简介">
     <header class="cube-excerpt-header">
         <h1><a href="/2017/08/29/测试/">Markdown 语法简介</a></h1>
@@ -203,7 +252,7 @@
 <p><strong>粗体</strong></p>
 <hr>
 <p><a href="https://justlooks.github.io">my blog</a></p>
-<p><a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x6d;&#121;&#x40;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#x6d;&#121;&#x40;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>  </p>
+<p><a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x6d;&#121;&#64;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x6d;&#121;&#64;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>  </p>
 <script type="math/tex; mode=display">x^y</script><script type="math/tex; mode=display">R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><hr>
 <p><div id="flowchart-0" class="flow-chart"></div></p>
 <p><script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: Start|past:>http://www.google.com[blank]
@@ -328,8 +377,8 @@ c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none
     <a title="Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.">Jeden Tag gibt&#39;s die Möglichkeit eines Wunders.</a>
     
     <div class="count">
-        <a class="count articles"><span>2</span>Article</a>
-        <a class="count tags"><span>0</span>Tags</a>
+        <a class="count articles"><span>3</span>Article</a>
+        <a class="count tags"><span>1</span>Tags</a>
         <a class="count categories"><span>0</span>Categories</a>
     </div>
 </div>
@@ -367,7 +416,7 @@ c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none
                     <span>1</span>
                 </p>
                 <p class="title">
-                    <a href="/2017/08/29/测试/" title="Markdown 语法简介">Markdown 语法简介</a>
+                    <a href="/2017/08/31/kubernetes-Garbage-Collection/" title="kubernetes - Garbage Collection">kubernetes - Garbage Collection</a>
                 </p>
             </div>
             
@@ -379,6 +428,19 @@ c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none
             <div class="normal">
                 <p class="index">
                     <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2017/08/29/测试/" title="Markdown 语法简介">Markdown 语法简介</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
                 </p>
                 <p class="title">
                     <a href="/2017/08/29/hello-world/" title="Hello World">Hello World</a>
@@ -393,6 +455,20 @@ c2(no)->op2->e</textarea><textarea id="flowchart-0-options" style="display: none
 
 
 
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/kubernetes/">#kubernetes</a>
+        </div>
+        
+    </div>
+</div>
 
 
 
