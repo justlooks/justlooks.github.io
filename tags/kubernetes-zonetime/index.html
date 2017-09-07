@@ -12,7 +12,7 @@
     
     
     
-    <title>解决pod中容器实例运行时间不一致问题 | Alex的稻草小屋</title>
+    <title>Tags: kubernetes, zonetime | Alex的稻草小屋</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -162,52 +162,29 @@
     
     <div class="cube-content">
         <div class="cube-left">
-            <div class="cube-article">
-    <h1 class="title">解决pod中容器实例运行时间不一致问题</h1>
+            <style>
+    @media(max-width: 768px) {
+        body {
+            background-color: #fff!important;
+        }
+    }
+</style>
+<div class="cube-archives">
     
-    <div class="cube-article-header">
-        <div class="cube-article-date">
-            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-            <!-- moment.js对象 -->
-            2017-09-07
-        </div>
-        <div class="cube-article-tags">
-    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-    
-    <a href="/tags/kubernetes-zonetime/">#kubernetes, zonetime</a>
-    
-</div>
+    <div class="cube-archive" style="margin-top: 0;">
+        <h1 class="title">kubernetes, zonetime</h1>
+        
+        <ul class="posts">
+            
+            <li class="post">
+                <a href="/2017/09/07/解决pod中容器实例运行时间不一致问题/">解决pod中容器实例运行时间不一致问题</a>
+            </li>
+            
+        </ul>
+        
     </div>
     
-    <div class="cube-article-content cube-markdown">
-        
-        <p>由于docker镜像在制作的时候会设置不同的时区，所以在运行pod也会产生时区不同，而对其中运行的应用造成一定影响<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@k8s-master tomcat]# date -R</div><div class="line">Thu, 07 Sep 2017 09:39:39 +0800</div><div class="line"></div><div class="line">/etc # date -R</div><div class="line">Thu, 07 Sep 2017 01:39:32 +0000</div></pre></td></tr></table></figure></p>
-<p>因为kubernetes物理节点的时区设置是统一的，我们需要做的就是将物理节点的时区挂载到pod中即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># ls -l /etc/localtime</div><div class="line">lrwxrwxrwx 1 root root 33 Feb 24  2017 /etc/localtime -&gt; /usr/share/zoneinfo/Asia/Shanghai</div></pre></td></tr></table></figure></p>
-<p>将deploy的代码改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">apiVersion: extensions/v1beta1</div><div class="line">kind: Deployment</div><div class="line">metadata:</div><div class="line">  name: kube-state-metrics</div><div class="line">  namespace: monitoring</div><div class="line">spec:</div><div class="line">  replicas: 2</div><div class="line">  template:</div><div class="line">    metadata:</div><div class="line">      labels:</div><div class="line">        app: kube-state-metrics</div><div class="line">    spec:</div><div class="line">      serviceAccountName: kube-state-metrics</div><div class="line">      containers:</div><div class="line">      - name: kube-state-metrics</div><div class="line">        image: gcr.io/google_containers/kube-state-metrics:v0.5.0</div><div class="line">        ports:</div><div class="line">        - containerPort: 8080</div><div class="line">       volumeMounts:</div><div class="line">        - name: config-tz</div><div class="line">          mountPath: /etc/localtime</div><div class="line">      volumes:</div><div class="line">      - name: config-tz</div><div class="line">        hostPath:</div><div class="line">          path: /usr/share/zoneinfo/Asia/Shanghai</div></pre></td></tr></table></figure></p>
-<p>验证结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># kubectl exec prometheus-core-3823466589-j6g4b --namespace monitoring date</div><div class="line">Thu Sep  7 13:32:35 CST 2017</div></pre></td></tr></table></figure></p>
-
-    </div>
 </div>
-
-<div class="cube-article-nav">
-    <ul>
-        
-        
-        <li class="next">
-            <a href="/2017/08/31/kubernetes-Garbage-Collection/">
-                kubernetes - Garbage Collection
-                <i class="cube-icon cube-next" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-    </ul>
-</div>
-
-
-<!-- TODO 根据theme.comment的内容进行入口选择 -->
-
-
-
         </div>
         <div class="cube-right">
             
